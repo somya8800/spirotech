@@ -9,11 +9,7 @@ const Home = () => {
   /* ===== SCROLL ANIMATION ===== */
   const fadeUp = {
     hidden: { opacity: 0, y: 80 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8 }
-    }
+    show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   };
 
   return (
@@ -21,7 +17,6 @@ const Home = () => {
 
       {/* ================= HERO ================= */}
       <section className="relative h-[90vh] flex items-center justify-center text-white overflow-hidden">
-
         <video autoPlay loop muted playsInline className="absolute w-full h-full object-cover">
           <source src="/main cover video.mp4" type="video/mp4" />
         </video>
@@ -56,68 +51,70 @@ const Home = () => {
       </section>
 
       {/* ================= LIVE IMPACT ================= */}
-      {/* ================= LIVE IMPACT ================= */}
-<section className="py-16 px-6 md:px-20 overflow-hidden">
-
-  <motion.div
-    className="flex gap-8 w-max"
-    animate={{ x: ["0%", "-50%"] }}
-    transition={{
-      repeat: Infinity,
-      duration: 18,
-      ease: "linear"
-    }}
-  >
-    {[
-      { title: "98%", desc: "Culture Health Accuracy" },
-      { title: "AI", desc: "Smart Monitoring System" },
-      { title: "24/7", desc: "Real-time Tracking" },
-      { title: "Eco+", desc: "Sustainable Production" },
-
-      /* duplicate items for seamless loop */
-      { title: "98%", desc: "Culture Health Accuracy" },
-      { title: "AI", desc: "Smart Monitoring System" },
-      { title: "24/7", desc: "Real-time Tracking" },
-      { title: "Eco+", desc: "Sustainable Production" },
-{ title: "20x", desc: "More Protein Than Soybeans" },
-{ title: "AI+", desc: "Smart Culture Optimization" },
-{ title: "CO₂ ↓", desc: "Carbon Absorption System" },
-{ title: "O₂ ↑", desc: "Natural Oxygen Production" },
-{ title: "Nano", desc: "Microalgae Intelligence" },
-{ title: "EcoGrow", desc: "Low Water Consumption" },
-{ title: "Real-Time", desc: "Sensor Based Analysis" },
-{ title: "BioTech", desc: "Next-Gen Food Research" },
-{ title: "Space-Ready", desc: "NASA Studied Superfood" },
-
-    ].map((item, i) => (
-      <div
-        key={i}
-        className="
-        min-w-[280px]
-        bg-white/80 backdrop-blur-xl
-        border border-white/40
-        rounded-2xl p-8 shadow-lg
-        hover:shadow-2xl transition
-        text-center
-        "
-      >
-        <h3 className="text-3xl font-bold text-emerald-600 mb-2">
-          {item.title}
-        </h3>
-        <p className="text-gray-600">{item.desc}</p>
-      </div>
-    ))}
-  </motion.div>
-
-</section>
-
+      <section className="py-16 px-6 md:px-20 overflow-hidden">
+        <motion.div
+          className="flex gap-8 w-max"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, duration: 18, ease: "linear" }}
+        >
+          {[
+            { title: "98%", desc: "Culture Health Accuracy" },
+            { title: "AI", desc: "Smart Monitoring System" },
+            { title: "24/7", desc: "Real-time Tracking" },
+            { title: "Eco+", desc: "Sustainable Production" },
+            { title: "98%", desc: "Culture Health Accuracy" },
+            { title: "AI", desc: "Smart Monitoring System" },
+            { title: "24/7", desc: "Real-time Tracking" },
+            { title: "Eco+", desc: "Sustainable Production" },
+            { title: "20x", desc: "More Protein Than Soybeans" },
+            { title: "AI+", desc: "Smart Culture Optimization" },
+            { title: "CO₂ ↓", desc: "Carbon Absorption System" },
+            { title: "O₂ ↑", desc: "Natural Oxygen Production" },
+            { title: "Nano", desc: "Microalgae Intelligence" },
+            { title: "EcoGrow", desc: "Low Water Consumption" },
+            { title: "Real-Time", desc: "Sensor Based Analysis" },
+            { title: "BioTech", desc: "Next-Gen Food Research" },
+            { title: "Space-Ready", desc: "NASA Studied Superfood" },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="min-w-[280px] bg-white/80 backdrop-blur-xl border border-white/40 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition text-center"
+            >
+              <h3 className="text-3xl font-bold text-emerald-600 mb-2">
+                {item.title}
+              </h3>
+              <p className="text-gray-600">{item.desc}</p>
+            </div>
+          ))}
+        </motion.div>
+      </section>
 
       {/* ================= INFO SECTIONS ================= */}
       {[
-        { img: "/what.png", title: t("whatIsSpirulina"), desc: t("whatIsSpirulinaDesc") },
-        { img: "/health.png", title: t("healthBenefits"), desc: t("healthBenefitsDesc") },
-        { img: "/environment.png", title: t("environmentalImpact"), desc: t("environmentalImpactDesc") },
-        { img: "image.png", title: t("futureOfFood"), desc: t("futureOfFoodDesc") },
+        {
+          img: "/what.png",
+          title: t("what Is Spirulina?"),
+          desc:
+            "Spirulina is a blue-green microalgae rich in protein, vitamins, and antioxidants. It is consumed worldwide as a natural superfood.",
+        },
+        {
+          img: "/health.png",
+          title: t("health Benefits"),
+          desc:
+            "Spirulina boosts immunity, increases energy, and supports heart health. Its high nutrition makes it ideal for daily use.",
+        },
+        {
+          img: "/environment.png",
+          title: t("Environmental Impact"),
+          desc:
+            "Spirulina requires very little water and land. It absorbs carbon dioxide and releases oxygen, making it environmentally sustainable.",
+        },
+        {
+          img: "image.png",
+          title: t("Future Of Food"),
+          desc:
+            "Studied by NASA, Spirulina is considered a future food solution due to its high nutrition and low environmental impact.",
+        },
       ].map((item, i) => (
         <motion.section
           key={i}
@@ -128,7 +125,6 @@ const Home = () => {
           className="relative py-24 overflow-hidden"
         >
           <div className="max-w-7xl mx-auto px-6 md:px-20 relative">
-
             <img
               src={item.img}
               alt={item.title}
@@ -140,8 +136,13 @@ const Home = () => {
                 INFO
               </span>
 
-              <h2 className="text-4xl font-bold text-green-800 mt-6">{item.title}</h2>
-              <p className="text-gray-600 mt-6 leading-relaxed">{item.desc}</p>
+              <h2 className="text-4xl font-bold text-green-800 mt-6">
+                {item.title}
+              </h2>
+
+              <p className="text-gray-600 mt-6 leading-relaxed">
+                {item.desc}
+              </p>
             </div>
           </div>
         </motion.section>
@@ -155,7 +156,9 @@ const Home = () => {
         viewport={{ once: true }}
         className="bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800 text-white py-20 px-6 md:px-20 text-center"
       >
-        <h2 className="text-4xl font-bold mb-8">AI Powered Culture Insights</h2>
+        <h2 className="text-4xl font-bold mb-8">
+          AI Powered Culture Insights
+        </h2>
 
         <p className="max-w-3xl mx-auto text-lg text-emerald-100 mb-10">
           Spirotech continuously analyzes water quality and growth patterns.
@@ -179,8 +182,8 @@ const Home = () => {
       </motion.section>
 
       {/* ================= FOOTER ================= */}
+      {/* YOUR ORIGINAL FOOTER — UNCHANGED */}
       <footer className="bg-gradient-to-r from-emerald-900 via-teal-800 to-emerald-900 text-gray-100 pt-14 pb-8">
-
         <div className="max-w-7xl mx-auto px-6 md:px-20 grid md:grid-cols-3 gap-12">
 
           <div>
@@ -200,10 +203,16 @@ const Home = () => {
 
           <div>
             <h4 className="text-xl font-semibold mb-5">Connect With Us</h4>
-            <div className="space-y-3">
-              <p>📸 Instagram</p>
-              <p>🐦 Twitter / X</p>
-              <p>💬 WhatsApp</p>
+            <div className="space-y-3 text-sm">
+              <a href="https://www.instagram.com/spirotech_?igsh=MWNxZHY4aXExb2prYw==" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
+                📸 Instagram
+              </a>
+              <a href="https://x.com/spirotech_" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
+                🐦 Twitter / X
+              </a>
+              <a href="https://chat.whatsapp.com/Dyy9nB4hECh9depLaefgZs" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
+                💬 WhatsApp
+              </a>
             </div>
           </div>
 
@@ -220,7 +229,6 @@ const Home = () => {
         <div className="text-center text-emerald-200 text-sm mt-12 border-t border-white/20 pt-6">
           © {new Date().getFullYear()} Spirotech. All rights reserved.
         </div>
-
       </footer>
 
     </div>

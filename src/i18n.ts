@@ -6,214 +6,213 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-  fallbackLng: "en",
+    fallbackLng: "en",
+    supportedLngs: ["en", "hi"],
+    load: "languageOnly",
 
-  supportedLngs: ["en", "hi", "mr", "pa", "bn", "kn", "ta"],   // 👈 YEH ADD KARO
-
-  load: "languageOnly",                                        // 👈 YEH ADD KARO
-
-  interpolation: {
-    escapeValue: false,
-  },
+    interpolation: {
+      escapeValue: false,
+    },
 
     resources: {
+      /* ================= ENGLISH ================= */
       en: {
         translation: {
-          // ================= SIDEBAR =================
+          /* NAV */
           home: "Home",
           dashboard: "Dashboard",
           analytics: "Analytics",
           settings: "Settings",
 
-          // ================= DASHBOARD =================
-          realTimeDashboard: "Real-Time Dashboard",
-          liveSensorReading:
-            "Live sensor readings from your Spirulina tank",
-
-          systemStatus: "System Status",
-          online: "Online",
-          allSensors: "All sensors reporting",
-          lastUpdate: "Last update: just now",
-
-          temperature: "Temperature",
-          phLevel: "pH Level",
-          waterLevel: "Water Level",
-          airQuality:"Air Quality",
-          humidity:"Humidity",
-          lightIntensity: "Light Intensity",
-          growthRate: "Growth Rate",
-          range: "Range",
-          normal: "Normal",
-          warning: "Warning",
-
-          // ================= ANALYTICS =================
-          analyticsDescription: "System performance overview",
-          day24: "24h",
-          day7: "7d",
-          day30: "30d",
-          tempPhOverTime: "Temperature & pH Over Time",
-          lightIntensityPattern: "Light Intensity Pattern",
-
-          // ================= HOME PAGE =================
+          /* HOME */
           heroBadge: "✨ Smart Spirulina Monitoring",
           heroTitle: "Grow the Future with",
           spirulina: "Spirulina",
           heroDescription:
-            "Monitor, analyze, and optimize your Spirulina cultivation with our intelligent smart system. Real-time data, automated controls, and actionable insights — all in one place.",
+            "Monitor, analyze, and optimize your Spirulina cultivation with our intelligent smart system.",
           goToDashboard: "Go to Dashboard →",
 
-          whySpirulina: "Why Spirulina?",
-          whatIsSpirulina: "What is Spirulina?",
-          whatIsSpirulinaDesc:
-            "Spirulina is a blue-green microalgae that thrives in warm, alkaline water. It's one of the oldest life forms on Earth and has been consumed for centuries as a powerful source of nutrition.",
+          /* FOOTER */
+          footer: {
+            connect: "Connect With Us",
+            contact: "Contact",
+            instagram: "Instagram",
+            twitter: "Twitter / X",
+            whatsapp: "WhatsApp",
+          },
 
-          healthBenefits: "Health Benefits",
-          healthBenefitsDesc:
-            "Packed with 60–70% protein, essential vitamins, minerals, and antioxidants. Spirulina supports immune health, reduces inflammation, and provides sustained energy naturally.",
+          /* LIVE IMPACT */
+          impact: {
+            cultureAccuracy: "Culture Health Accuracy",
+            smartMonitoring: "Smart Monitoring System",
+            realtimeTracking: "Real-time Tracking",
+            sustainable: "Sustainable Production",
+            moreProtein: "More Protein Than Soybeans",
+            optimization: "Smart Culture Optimization",
+            carbonAbsorption: "Carbon Absorption System",
+            oxygen: "Natural Oxygen Production",
+            microalgae: "Microalgae Intelligence",
+            lowWater: "Low Water Consumption",
+            sensorAnalysis: "Sensor Based Analysis",
+            biotech: "Next-Gen Food Research",
+            spaceFood: "NASA Studied Superfood",
+          },
 
-          environmentalImpact: "Environmental Impact",
-          environmentalImpactDesc:
-            "Spirulina produces 20x more protein per acre than soybeans, uses minimal water, absorbs CO₂, and releases oxygen. A true champion of sustainable agriculture.",
+          /* EDUCATION */
+          edu: {
+            articles: {
+              title: "Spirulina Articles",
+              what: "What is Spirulina?",
+              whatDesc:
+                "Protein rich blue-green algae used as a future superfood.",
+              health: "Health Benefits",
+              healthDesc:
+                "Boosts immunity, improves energy and supports heart health.",
+              env: "Environmental Impact",
+              envDesc: "Eco-friendly cultivation using very little water.",
+            },
 
-          futureOfFood: "Future of Food",
-          futureOfFoodDesc:
-            "NASA has studied Spirulina as a potential food source for space missions. With growing food demands, it offers a scalable, eco-friendly solution to feed the world.",
+            readMore: "Read More",
 
-          // ================= SETTINGS PAGE =================
-          automationNotifications: "Automation & Notifications",
-          manageControls:
-            "Manage automatic controls and alert preferences",
+            usage: {
+              title: "Global Spirulina Usage",
+              india: "India",
+              usa: "USA",
+              japan: "Japan",
+              europe: "Europe",
+              others: "Others",
+            },
 
-          automation: "Automation",
-          toggleControls:
-            "Toggle automatic controls for your tank",
+            quiz: {
+              title: "Spirulina Quiz",
+              q1: "Ideal pH range?",
+              o1a: "5-6",
+              o1b: "8.5-10.5",
+              o1c: "3-4",
+              o1d: "12+",
 
-          autoLight: "Auto Light Control",
-          autoLightDesc:
-            "Automatically manage lighting based on schedule",
+              q2: "Spirulina is?",
+              o2a: "Algae",
+              o2b: "Fungus",
+              o2c: "Plant",
+              o2d: "Mineral",
 
-          autoPump: "Auto Water Pump",
-          autoPumpDesc:
-            "Maintain water level automatically",
+              q3: "Best temperature?",
+              o3a: "10°C",
+              o3b: "30-35°C",
+              o3c: "50°C",
+              o3d: "5°C",
 
-          autoHeater: "Auto Heater",
-          autoHeaterDesc:
-            "Regulate temperature to target automatically",
+              q4: "Main benefit?",
+              o4a: "Protein",
+              o4b: "Sugar",
+              o4c: "Fat",
+              o4d: "Salt",
+            },
 
-          notifications: "Notifications",
-          configureAlerts: "Configure alert preferences",
+            next: "Next",
 
-          emailAlerts: "Email Alerts",
-          emailAlertsDesc:
-            "Receive daily summary and alerts via email",
-
-          criticalAlerts: "Critical Alerts Only",
-          criticalAlertsDesc:
-            "Only notify when parameters are out of safe range",
-
-          saveSettings: "Save Settings",
-          settingsSaved:
-            "Settings Saved Successfully ✅",
+            level: {
+              beginner: "Beginner 🌱",
+              advanced: "Advanced Grower 🌿",
+              expert: "Spirulina Expert 🧪",
+            },
+          },
         },
       },
 
-      // ================= HINDI =================
-      
-       hi: {
-  translation: {
-    home: "होम",
-    dashboard: "डैशबोर्ड",
-    analytics: "एनालिटिक्स",
-    settings: "सेटिंग्स",
+      /* ================= HINDI ================= */
+      hi: {
+        translation: {
+          home: "होम",
+          dashboard: "डैशबोर्ड",
+          analytics: "एनालिटिक्स",
+          settings: "सेटिंग्स",
 
-    realTimeDashboard: "रीयल-टाइम डैशबोर्ड",
-    liveSensorReading:
-      "आपके स्पिरुलिना टैंक से लाइव सेंसर रीडिंग",
+          footer: {
+            connect: "हमसे जुड़ें",
+            contact: "संपर्क",
+            instagram: "इंस्टाग्राम",
+            twitter: "ट्विटर / एक्स",
+            whatsapp: "व्हाट्सएप",
+          },
 
-    systemStatus: "सिस्टम स्थिति",
-    online: "ऑनलाइन",
-    allSensors: "सभी सेंसर रिपोर्ट कर रहे हैं",
-    lastUpdate: "अंतिम अपडेट: अभी",
+          impact: {
+            cultureAccuracy: "संस्कृति स्वास्थ्य सटीकता",
+            smartMonitoring: "स्मार्ट निगरानी प्रणाली",
+            realtimeTracking: "रीयल-टाइम ट्रैकिंग",
+            sustainable: "सतत उत्पादन",
+            moreProtein: "20 गुना अधिक प्रोटीन",
+            optimization: "स्मार्ट कल्चर अनुकूलन",
+            carbonAbsorption: "कार्बन अवशोषण प्रणाली",
+            oxygen: "प्राकृतिक ऑक्सीजन उत्पादन",
+            microalgae: "माइक्रोएल्गी इंटेलिजेंस",
+            lowWater: "कम पानी की खपत",
+            sensorAnalysis: "सेंसर आधारित विश्लेषण",
+            biotech: "अगली पीढ़ी का फूड रिसर्च",
+            spaceFood: "NASA अध्ययन सुपरफूड",
+          },
 
-    temperature: "तापमान",
-    phLevel: "पीएच स्तर",
-    waterLevel: "जल स्तर",
-    humidity: "नमी",
-    lightIntensity: "प्रकाश तीव्रता",
-    airQuality: "वायु गुणवत्ता",
-    growthRate: "विकास दर",
-    range: "सीमा",
-    normal: "सामान्य",
-    warning: "चेतावनी",
+          edu: {
+            articles: {
+              title: "स्पिरुलिना लेख",
+              what: "स्पिरुलिना क्या है?",
+              whatDesc:
+                "प्रोटीन से भरपूर नीला-हरा शैवाल।",
+              health: "स्वास्थ्य लाभ",
+              healthDesc:
+                "इम्युनिटी बढ़ाता है और ऊर्जा देता है।",
+              env: "पर्यावरणीय प्रभाव",
+              envDesc: "कम पानी में टिकाऊ उत्पादन।",
+            },
 
-    // ✅ ADDED ANALYTICS TRANSLATIONS
-    analyticsDescription: "सिस्टम प्रदर्शन अवलोकन",
-    day24: "24 घंटे",
-    day7: "7 दिन",
-    day30: "30 दिन",
-    tempPhOverTime: "समय के साथ तापमान और पीएच",
-    lightIntensityPattern: "प्रकाश तीव्रता पैटर्न",
+            readMore: "और पढ़ें",
 
-    heroBadge: "✨ स्मार्ट स्पिरुलिना मॉनिटरिंग",
-    heroTitle: "भविष्य उगाएँ",
-    spirulina: "स्पिरुलिना",
-    heroDescription:
-      "अपने स्पिरुलिना उत्पादन को मॉनिटर, विश्लेषण और ऑप्टिमाइज़ करें। रियल-टाइम डेटा और स्मार्ट कंट्रोल्स के साथ।",
-    goToDashboard: "डैशबोर्ड पर जाएँ →",
+            usage: {
+              title: "वैश्विक स्पिरुलिना उपयोग",
+              india: "भारत",
+              usa: "अमेरिका",
+              japan: "जापान",
+              europe: "यूरोप",
+              others: "अन्य",
+            },
 
-    whySpirulina: "स्पिरुलिना क्यों?",
-    whatIsSpirulina: "स्पिरुलिना क्या है?",
-    whatIsSpirulinaDesc:
-      "स्पिरुलिना एक नीला-हरा सूक्ष्म शैवाल है जो गर्म क्षारीय पानी में पनपता है।",
+            quiz: {
+              title: "स्पिरुलिना क्विज़",
+              q1: "आदर्श pH सीमा?",
+              o1a: "5-6",
+              o1b: "8.5-10.5",
+              o1c: "3-4",
+              o1d: "12+",
 
-    healthBenefits: "स्वास्थ्य लाभ",
-    healthBenefitsDesc:
-      "प्रोटीन, विटामिन और एंटीऑक्सीडेंट से भरपूर।",
+              q2: "स्पिरुलिना क्या है?",
+              o2a: "शैवाल",
+              o2b: "फंगस",
+              o2c: "पौधा",
+              o2d: "खनिज",
 
-    environmentalImpact: "पर्यावरणीय प्रभाव",
-    environmentalImpactDesc:
-      "कम पानी में अधिक उत्पादन और CO₂ अवशोषण।",
+              q3: "सर्वोत्तम तापमान?",
+              o3a: "10°C",
+              o3b: "30-35°C",
+              o3c: "50°C",
+              o3d: "5°C",
 
-    futureOfFood: "भविष्य का भोजन",
-    futureOfFoodDesc:
-      "अंतरिक्ष मिशनों के लिए भी अध्ययन किया गया।",
+              q4: "मुख्य लाभ?",
+              o4a: "प्रोटीन",
+              o4b: "शुगर",
+              o4c: "वसा",
+              o4d: "नमक",
+            },
 
-    automationNotifications: "ऑटोमेशन और नोटिफिकेशन",
-    manageControls:
-      "स्वचालित नियंत्रण और अलर्ट सेटिंग्स प्रबंधित करें",
-
-    automation: "ऑटोमेशन",
-    toggleControls:
-      "अपने टैंक के लिए स्वचालित नियंत्रण टॉगल करें",
-
-    autoLight: "ऑटो लाइट कंट्रोल",
-    autoLightDesc:
-      "शेड्यूल के अनुसार लाइट नियंत्रित करें",
-
-    autoPump: "ऑटो वाटर पंप",
-    autoPumpDesc:
-      "पानी का स्तर स्वतः बनाए रखें",
-
-    autoHeater: "ऑटो हीटर",
-    autoHeaterDesc:
-      "तापमान स्वतः नियंत्रित करें",
-
-    notifications: "सूचनाएँ",
-    configureAlerts: "अलर्ट प्राथमिकताएँ सेट करें",
-
-    emailAlerts: "ईमेल अलर्ट",
-    emailAlertsDesc:
-      "ईमेल द्वारा दैनिक सारांश प्राप्त करें",
-
-    criticalAlerts: "केवल महत्वपूर्ण अलर्ट",
-    criticalAlertsDesc:
-      "केवल गंभीर स्थिति में सूचित करें",
-
-    saveSettings: "सेटिंग्स सेव करें",
-    settingsSaved: "सेटिंग्स सफलतापूर्वक सेव हुई ✅",
-  },
-},
-
+            next: "आगे",
+            level: {
+              beginner: "शुरुआती 🌱",
+              advanced: "उन्नत उत्पादक 🌿",
+              expert: "स्पिरुलिना विशेषज्ञ 🧪",
+            },
+          },
+        },
+      },
     },
   });
 
