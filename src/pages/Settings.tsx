@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ref, set } from "firebase/database";
+import { db } from "../firebase";
 import {
   Thermometer,
   Droplets,
@@ -12,7 +14,7 @@ export default function Analytics() {
   const { t } = useTranslation();
 
   const [autoLight, setAutoLight] = useState(false);
-  const [autoPump, setAutoPump] = useState(false);
+  const [autofan, setAutofan] = useState(false);
   const [autoHeater, setAutoHeater] = useState(false);
   const [emailAlerts, setEmailAlerts] = useState(false);
   const [criticalOnly, setCriticalOnly] = useState(false);
@@ -43,7 +45,7 @@ export default function Analytics() {
 
         <div className="space-y-4">
 
-          {/* Auto Light */}
+          {/* ✅ LIGHT CONTROL */}
           <div className="flex items-center justify-between bg-gray-50 p-4 rounded-xl">
             <div className="flex items-center gap-3">
               <Sun size={22} className="text-yellow-500" />
@@ -57,29 +59,41 @@ export default function Analytics() {
             <input
               type="checkbox"
               checked={autoLight}
-              onChange={() => setAutoLight(!autoLight)}
+              onChange={() => {
+                const newValue = !autoLight;
+                setAutoLight(newValue);
+
+                // Firebase write
+                set(ref(db, "controls/light"), newValue ? 1 : 0);
+              }}
             />
           </div>
 
-          {/* Auto Pump */}
+          {/* ✅ FAN CONTROL */}
           <div className="flex items-center justify-between bg-gray-50 p-4 rounded-xl">
             <div className="flex items-center gap-3">
               <Droplets size={22} className="text-blue-500" />
               <div>
-                <h3 className="font-semibold">{t("autoPump")}</h3>
+                <h3 className="font-semibold">{t("autofan")}</h3>
                 <p className="text-sm text-gray-500">
-                  {t("autoPumpDesc")}
+                  {t("autofanDesc")}
                 </p>
               </div>
             </div>
             <input
               type="checkbox"
-              checked={autoPump}
-              onChange={() => setAutoPump(!autoPump)}
+              checked={autofan}
+              onChange={() => {
+                const newValue = !autofan;
+                setAutofan(newValue);
+
+                // Firebase write
+                set(ref(db, "controls/fans"), newValue ? 1 : 0);
+              }}
             />
           </div>
 
-          {/* Auto Heater */}
+          {/* ✅ MANUAL MODE SWITCH */}
           <div className="flex items-center justify-between bg-gray-50 p-4 rounded-xl">
             <div className="flex items-center gap-3">
               <Thermometer size={22} className="text-red-500" />
@@ -93,7 +107,13 @@ export default function Analytics() {
             <input
               type="checkbox"
               checked={autoHeater}
-              onChange={() => setAutoHeater(!autoHeater)}
+              onChange={() => {
+                const newValue = !autoHeater;
+                setAutoHeater(newValue);
+
+                // Firebase write
+                set(ref(db, "controls/manualMode"), newValue ? 1 : 0);
+              }}
             />
           </div>
 
@@ -111,7 +131,6 @@ export default function Analytics() {
 
         <div className="space-y-4">
 
-          {/* Email Alerts */}
           <div className="flex items-center justify-between bg-gray-50 p-4 rounded-xl">
             <div className="flex items-center gap-3">
               <Bell size={22} className="text-green-600" />
@@ -129,7 +148,6 @@ export default function Analytics() {
             />
           </div>
 
-          {/* Critical Alerts */}
           <div className="flex items-center justify-between bg-gray-50 p-4 rounded-xl">
             <div className="flex items-center gap-3">
               <Zap size={22} className="text-purple-500" />
