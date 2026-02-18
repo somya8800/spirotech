@@ -12,7 +12,7 @@ const Home = () => {
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.8 }
     }
   };
 
@@ -56,31 +56,61 @@ const Home = () => {
       </section>
 
       {/* ================= LIVE IMPACT ================= */}
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="py-16 px-6 md:px-20"
+      {/* ================= LIVE IMPACT ================= */}
+<section className="py-16 px-6 md:px-20 overflow-hidden">
+
+  <motion.div
+    className="flex gap-8 w-max"
+    animate={{ x: ["0%", "-50%"] }}
+    transition={{
+      repeat: Infinity,
+      duration: 18,
+      ease: "linear"
+    }}
+  >
+    {[
+      { title: "98%", desc: "Culture Health Accuracy" },
+      { title: "AI", desc: "Smart Monitoring System" },
+      { title: "24/7", desc: "Real-time Tracking" },
+      { title: "Eco+", desc: "Sustainable Production" },
+
+      /* duplicate items for seamless loop */
+      { title: "98%", desc: "Culture Health Accuracy" },
+      { title: "AI", desc: "Smart Monitoring System" },
+      { title: "24/7", desc: "Real-time Tracking" },
+      { title: "Eco+", desc: "Sustainable Production" },
+{ title: "20x", desc: "More Protein Than Soybeans" },
+{ title: "AI+", desc: "Smart Culture Optimization" },
+{ title: "CO₂ ↓", desc: "Carbon Absorption System" },
+{ title: "O₂ ↑", desc: "Natural Oxygen Production" },
+{ title: "Nano", desc: "Microalgae Intelligence" },
+{ title: "EcoGrow", desc: "Low Water Consumption" },
+{ title: "Real-Time", desc: "Sensor Based Analysis" },
+{ title: "BioTech", desc: "Next-Gen Food Research" },
+{ title: "Space-Ready", desc: "NASA Studied Superfood" },
+
+    ].map((item, i) => (
+      <div
+        key={i}
+        className="
+        min-w-[280px]
+        bg-white/80 backdrop-blur-xl
+        border border-white/40
+        rounded-2xl p-8 shadow-lg
+        hover:shadow-2xl transition
+        text-center
+        "
       >
-        <div className="grid md:grid-cols-4 gap-8 text-center">
-          {[
-            { title: "98%", desc: "Culture Health Accuracy" },
-            { title: "AI", desc: "Smart Monitoring System" },
-            { title: "24/7", desc: "Real-time Tracking" },
-            { title: "Eco+", desc: "Sustainable Production" },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              transition={{ delay: i * 0.2 }}
-              className="bg-white/80 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition"
-            >
-              <h3 className="text-3xl font-bold text-emerald-600 mb-2">{item.title}</h3>
-              <p className="text-gray-600">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
+        <h3 className="text-3xl font-bold text-emerald-600 mb-2">
+          {item.title}
+        </h3>
+        <p className="text-gray-600">{item.desc}</p>
+      </div>
+    ))}
+  </motion.div>
+
+</section>
+
 
       {/* ================= INFO SECTIONS ================= */}
       {[
