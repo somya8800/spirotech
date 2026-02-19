@@ -60,10 +60,10 @@ const Analytics = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">
-            {t("analytics")}
+            {t("Analytics")}
           </h1>
           <p className="text-gray-500">
-            {t("analyticsDescription")}
+            {t("Analytics Description")}
           </p>
         </div>
 
@@ -106,7 +106,7 @@ const Analytics = () => {
       {/* Temperature & pH */}
       <div className="bg-white rounded-2xl shadow-sm border p-6">
         <h2 className="font-semibold mb-6">
-          {t("tempPhOverTime")}
+          {t("TempPh Over Time")}
         </h2>
 
         <div className="h-80">
@@ -130,7 +130,7 @@ const Analytics = () => {
         {/* Growth Rate */}
         <div className="bg-white rounded-2xl shadow-sm border p-6">
           <h2 className="font-semibold mb-6">
-            {t("growthRate")}
+            {t("Growth Rate")}
           </h2>
 
           <div className="h-64">
@@ -149,7 +149,7 @@ const Analytics = () => {
         {/* Light Intensity */}
         <div className="bg-white rounded-2xl shadow-sm border p-6">
           <h2 className="font-semibold mb-6">
-            {t("lightIntensityPattern")}
+            {t("Light Intensity Pattern")}
           </h2>
 
           <div className="h-64">

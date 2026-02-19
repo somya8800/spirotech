@@ -85,9 +85,9 @@ const Dashboard = () => {
       {/* HEADER */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900">
-          {t("realTimeDashboard")}
+          {t("Real Time Dashboard")}
         </h1>
-        <p className="text-gray-500">{t("liveSensorReading")}</p>
+        <p className="text-gray-500">{t("Live Sensor Reading")}</p>
       </div>
 
       {/* ================= SYSTEM STATUS ================= */}
@@ -103,10 +103,10 @@ const Dashboard = () => {
 
           <div>
             <p className="font-semibold text-gray-800 text-lg">
-              {t("systemStatus")} : {t("online")}
+              {t("System Status")} : {t("online")}
             </p>
             <p className="text-sm text-gray-500">
-              {t("allSensors")} • Live AI Monitoring
+              {t("AllSensors")} • Live AI Monitoring
             </p>
           </div>
         </div>
@@ -140,10 +140,10 @@ const Dashboard = () => {
             value: sensor.phLevel ? `${sensor.phLevel.toFixed(2)} pH` : "8-10 pH",
             icon: <Droplets/>
           },
-          {name:t("humidity"), value:`${sensor.humidity}%`, icon:<Waves/>},
-          {name:t("lightIntensity"), value:`${sensor.light} lux`, icon:<Sun/>},
+          {name:t("Humidity"), value:`${sensor.humidity}%`, icon:<Waves/>},
+          {name:t("Light Intensity"), value:`${sensor.light} lux`, icon:<Sun/>},
           {name:"Air Quality", value:sensor.airQuality, icon:<Wind/>},
-          {name:t("growthRate"), value:`${sensor.growthRate} g/L/d`, icon:<TrendingUp/>},
+          {name:t("Growth Rate"), value:`${sensor.growthRate} g/L/d`, icon:<TrendingUp/>},
         ].map((item,i)=>(
           <div key={i} className={cardStyle}>
             <div className="flex justify-between items-center">

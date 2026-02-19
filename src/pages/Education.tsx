@@ -17,7 +17,7 @@ const articles = [
 title:"What is Spirulina?",
 img:"/what.png",
 short:"Protein rich blue-green algae used as a future superfood.",
-link:"https://www.medicalnewstoday.com/articles/324681"
+link:"https://pmc.ncbi.nlm.nih.gov/articles/PMC3136577/"
 },
 {
 title:"Health Benefits",
@@ -29,7 +29,7 @@ link:"https://www.healthline.com/nutrition/10-proven-benefits-of-spirulina"
 title:"Environmental Impact",
 img:"/environment.png",
 short:"Eco-friendly cultivation using very little water.",
-link:"https://www.fao.org/fao-stories/article/en/c/1630331/"
+link:"https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/spirulina"
 }
 ];
 
