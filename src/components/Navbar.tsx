@@ -50,6 +50,7 @@ const Navbar = () => {
 
           {/* Language Switcher */}
           <LanguageSwitcher />
+          
         </div>
 
         {/* ================= MOBILE MENU BUTTON ================= */}
