@@ -1,8 +1,17 @@
 export async function handler(event) {
 
-  const { message } = JSON.parse(event.body);
-
   try {
+
+    if (!event.body) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          reply: "AI endpoint working"
+        })
+      };
+    }
+
+    const { message } = JSON.parse(event.body);
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
@@ -33,11 +42,11 @@ export async function handler(event) {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        reply: data.choices[0].message.content
+        reply: data.choices?.[0]?.message?.content || "No response"
       })
     };
 
-  } catch (err) {
+  } catch (error) {
 
     return {
       statusCode: 500,
