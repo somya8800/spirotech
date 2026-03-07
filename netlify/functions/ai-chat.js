@@ -2,13 +2,10 @@ export async function handler(event) {
 
   try {
 
-    // Handle GET request safely
     if (!event.body) {
       return {
         statusCode: 200,
-        body: JSON.stringify({
-          reply: "AI endpoint running"
-        })
+        body: JSON.stringify({ reply: "AI endpoint running" })
       };
     }
 
@@ -19,7 +16,7 @@ export async function handler(event) {
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -40,11 +37,16 @@ export async function handler(event) {
 
     const data = await response.json();
 
+    console.log("Groq response:", data);
+
+    const reply =
+      data?.choices?.[0]?.message?.content ||
+      data?.choices?.[0]?.text ||
+      "No response";
+
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        reply: data.choices?.[0]?.message?.content || "No response"
-      })
+      body: JSON.stringify({ reply })
     };
 
   } catch (error) {
@@ -53,9 +55,7 @@ export async function handler(event) {
 
     return {
       statusCode: 500,
-      body: JSON.stringify({
-        reply: "AI service error"
-      })
+      body: JSON.stringify({ reply: "AI service error" })
     };
 
   }
