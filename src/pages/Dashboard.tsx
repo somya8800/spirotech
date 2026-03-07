@@ -9,7 +9,7 @@ import {
   Brain,
 } from "lucide-react";
 
-import AIChat from "../components/AIChat";
+import FloatingAIChat from "../components/FloatingAIChat";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { ref, onValue } from "firebase/database";
@@ -199,14 +199,9 @@ const Dashboard = () => {
 
           </div>
         ))}
-
+        <FloatingAIChat sensor={sensor} />
       </div>
-
-      {/* AI CHATBOT */}
-
-      <AIChat/>
-
-    </div>
+      </div>
   );
 };
 
