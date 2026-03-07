@@ -2,11 +2,12 @@ export async function handler(event) {
 
   try {
 
+    // Handle GET request safely
     if (!event.body) {
       return {
         statusCode: 200,
         body: JSON.stringify({
-          reply: "AI endpoint working"
+          reply: "AI endpoint running"
         })
       };
     }
@@ -47,6 +48,8 @@ export async function handler(event) {
     };
 
   } catch (error) {
+
+    console.error("Function error:", error);
 
     return {
       statusCode: 500,
