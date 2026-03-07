@@ -9,7 +9,17 @@ export async function handler(event) {
       };
     }
 
-    const { message } = JSON.parse(event.body);
+    const { message, sensor } = JSON.parse(event.body);
+
+    const sensorInfo = sensor
+      ? `Current sensor data:
+Temperature: ${sensor.temperature}°C
+Humidity: ${sensor.humidity}%
+Light: ${sensor.light} lux
+Air Quality: ${sensor.airQuality}
+pH Level: ${sensor.phLevel}
+Growth Rate: ${sensor.growthRate} g/L/d`
+      : "No sensor data available.";
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
@@ -24,7 +34,11 @@ export async function handler(event) {
           messages: [
             {
               role: "system",
-              content: "You are a spirulina farming expert."
+              content: `You are a spirulina farming expert.
+Use the sensor data to give advice about spirulina cultivation.
+Answer only spirulina related questions in one short sentence.
+
+${sensorInfo}`
             },
             {
               role: "user",
