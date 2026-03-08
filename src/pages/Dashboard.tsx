@@ -405,7 +405,7 @@ rounded-2xl shadow-xl border border-white/40 backdrop-blur-lg p-6">
       {cameraOnline && cameraUrl ? (
 
         <img
-          src={cameraUrl}
+          src={CAMERA_STREAM_URL}
           alt="ESP32 Camera"
           className="w-full h-[360px] md:h-[420px] object-cover"
           onError={() => setCameraOnline(false)}
