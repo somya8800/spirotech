@@ -149,7 +149,7 @@ className={`px-4 py-2 rounded ${language==="hi"?"bg-green-600 text-white":"bg-gr
 <div className="absolute -top-10 -left-10 w-72 h-72 bg-green-200 rounded-full blur-3xl opacity-40"></div>
 
 <img
-src="public\img1.jpg"
+src="/img1.jpg"
 className="w-full max-w-[520px] aspect-[4/3] object-cover rounded-3xl shadow-xl hover:scale-105 transition"
 />
 
@@ -165,7 +165,7 @@ className="w-full max-w-[520px] aspect-[4/3] object-cover rounded-3xl shadow-xl 
 
 <div className="bg-white p-6 rounded-xl shadow hover:-translate-y-2 transition">
 
-<img src="public\img2.jpg" className="rounded mb-4"/>
+<img src="/img2.jpg" className="rounded mb-4"/>
 
 <h3 className="font-bold text-green-700 text-lg">
 High Protein
@@ -180,7 +180,7 @@ High Protein
 
 <div className="bg-white p-6 rounded-xl shadow hover:-translate-y-2 transition">
 
-<img src="public\img5.jpg" className="rounded mb-4"/>
+<img src="/img5.jpg" className="rounded mb-4"/>
 
 <h3 className="font-bold text-green-700 text-lg">
 Sustainable
@@ -195,7 +195,7 @@ Needs very little water and land
 
 <div className="bg-white p-6 rounded-xl shadow hover:-translate-y-2 transition">
 
-<img src="public\img4.jpg" className="rounded mb-4"/>
+<img src="/img4.jpg" className="rounded mb-4"/>
 
 <h3 className="font-bold text-green-700 text-lg">
 Health Benefits
@@ -217,7 +217,7 @@ Rich in antioxidants and vitamins
 
 <div className="grid md:grid-cols-2 gap-10 items-center">
 
-<img src="public\img6.jpg" className="rounded-xl shadow"/>
+<img src="/img6.jpg" className="rounded-xl shadow"/>
 
 <div>
 
@@ -248,7 +248,7 @@ Spirulina can be harvested every 3-5 days.
 
 </div>
 
-<img src="public\img7.jpg" className="rounded-xl shadow"/>
+<img src="/img7.jpg" className="rounded-xl shadow"/>
 
 </div>
 
@@ -266,13 +266,13 @@ Spirulina Gallery
 
 <div className="grid md:grid-cols-4 gap-4">
 
-<img src="public\img8.jpg" className="rounded hover:scale-105 transition"/>
+<img src="/img8.jpg" className="rounded hover:scale-105 transition"/>
 
-<img src="public\img9.jpg" className="rounded hover:scale-105 transition"/>
+<img src="/img9.jpg" className="rounded hover:scale-105 transition"/>
 
-<img src="public\img10.jpg" className="rounded hover:scale-105 transition"/>
+<img src="/img10.jpg" className="rounded hover:scale-105 transition"/>
 
-<img src="public\img11.jpg" className="rounded hover:scale-105 transition"/>
+<img src="/img11.jpg" className="rounded hover:scale-105 transition"/>
 
 </div>
 
