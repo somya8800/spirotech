@@ -1,4 +1,3 @@
-
 import {
   Thermometer,
   Droplets,
@@ -7,6 +6,7 @@ import {
   TrendingUp,
   Wind,
   Brain,
+  Camera,
 } from "lucide-react";
 
 import FloatingAIChat from "../components/FloatingAIChat";
@@ -19,6 +19,8 @@ const Dashboard = () => {
 
   const { t } = useTranslation();
 
+  const CAMERA_STREAM_URL = "http://10.206.183.200:81/stream"; // <-- CHANGE THIS
+
   const [sensor, setSensor] = useState({
     temperature: 0,
     humidity: 0,
@@ -28,17 +30,39 @@ const Dashboard = () => {
     growthRate: 0,
   });
 
+  const [alertBanner, setAlertBanner] = useState<{ type: string; msg: string } | null>(null);
+  const [cameraUrl, setCameraUrl] = useState<string>("");
+  const [cameraOnline, setCameraOnline] = useState(true);
+  const [aiHealth, setAiHealth] = useState(0);
+  const [aiStatus, setAiStatus] = useState("");
+
   useEffect(() => {
+
     const sensorRef = ref(db, "sensors");
+    const cameraRef = ref(db, "camera/stream");
+    const aiRef = ref(db, "ai");
+    onValue(aiRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setAiHealth(data.health);
+        setAiStatus(data.status);
+      }
+    });
 
     onValue(sensorRef, (snapshot) => {
       const data = snapshot.val();
       if (data) setSensor(data);
     });
-
+    onValue(cameraRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      setCameraUrl(data);
+      setCameraOnline(true);
+    }
+  });
   }, []);
 
-  /* ================= HEALTH CHECK ================= */
+  /* ================= HEALTH SCORE ================= */
 
   const checks = [
     sensor.temperature >= 28 && sensor.temperature <= 35,
@@ -52,7 +76,7 @@ const Dashboard = () => {
   const healthScore =
     (checks.filter(Boolean).length / checks.length) * 100;
 
-  /* ================= AI ENGINE ================= */
+  /* ================= AI RECOMMENDATION ================= */
 
   const getAIRecommendation = () => {
 
@@ -82,96 +106,238 @@ const Dashboard = () => {
 
   const aiMessage = getAIRecommendation();
 
+  /* ================= SMART ALERT ================= */
+
+  useEffect(() => {
+
+    let newAlert = null;
+
+    if (sensor.temperature > 35)
+      newAlert = { type: "alert", msg: "Temperature too high!" };
+
+    else if (sensor.temperature < 28)
+      newAlert = { type: "warning", msg: "Temperature too low." };
+
+    else if (sensor.phLevel < 8.5)
+      newAlert = { type: "warning", msg: "pH level low." };
+
+    else if (sensor.phLevel > 10.5)
+      newAlert = { type: "alert", msg: "pH level too high!" };
+
+    else if (sensor.light < 2500)
+      newAlert = { type: "warning", msg: "Light intensity low." };
+
+    else if (sensor.airQuality < 900)
+      newAlert = { type: "warning", msg: "Air circulation weak." };
+
+    if (newAlert) {
+
+      setAlertBanner(newAlert);
+
+      setTimeout(() => {
+        setAlertBanner(null);
+      }, 5000);
+
+    }
+
+  }, [sensor]);
+
+  /* ================= CARD STYLE ================= */
+
   const cardStyle =
-    "bg-white/80 backdrop-blur-lg p-6 rounded-2xl shadow-md " +
-    "hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-white/40";
+    "bg-white/80 backdrop-blur-lg p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-white/40";
+
+  const alertCard =
+    "ring-2 ring-red-500 animate-pulse";
 
   return (
     <div className="space-y-8 min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-6">
 
-      {/* HEADER */}
+      {/* ================= ALERT BANNER ================= */}
+
+      {alertBanner && (
+        <div
+          className={`fixed left-0 top-1/2 -translate-y-1/2 w-full py-4 text-center text-lg font-semibold shadow-2xl z-50 backdrop-blur-xl border border-white/30 alert-slide
+          ${
+            alertBanner.type === "alert"
+              ? "bg-red-500/90 text-white"
+              : "bg-yellow-400/90 text-black"
+          }`}
+        >
+          {alertBanner.type === "alert" ? "⚠ ALERT: " : "⚠ WARNING: "}
+          {alertBanner.msg}
+        </div>
+      )}
+
+      {/* ================= HEADER ================= */}
 
       <div>
         <h1 className="text-3xl font-bold text-gray-900">
           {t("Real Time Dashboard")}
         </h1>
-        <p className="text-gray-500">{t("Live Sensor Reading")}</p>
+
+        <p className="text-gray-500">
+          {t("Live Sensor Reading")}
+        </p>
       </div>
 
-      {/* SYSTEM STATUS */}
+      {/* ================= SYSTEM STATUS ================= */}
 
-      <div className="bg-white/70 backdrop-blur-xl rounded-2xl shadow-lg border p-6 flex justify-between items-center">
+      <div className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
 
-        <div className="flex items-center gap-4">
+  <div className="flex items-center gap-4">
 
-          <div className="relative">
-            <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-            <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-70"></div>
-          </div>
+    <div className="relative">
+      <div className="w-4 h-4 bg-white rounded-full"></div>
+      <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-70"></div>
+    </div>
 
-          <div>
-            <p className="font-semibold text-gray-800 text-lg">
-              {t("System Status")} : {t("online")}
-            </p>
+    <div>
+      <h3 className="text-lg font-semibold">System Status</h3>
+      <p className="text-sm opacity-80">
+        All sensors active • AI monitoring running
+      </p>
+    </div>
 
-            <p className="text-sm text-gray-500">
-              {t("All Sensors")} • Live AI Monitoring
-            </p>
-          </div>
+  </div>
 
-        </div>
+  <div className="text-right">
+    <p className="text-sm opacity-80">Culture Health</p>
+    <p className="text-3xl font-bold">{healthScore.toFixed(0)}%</p>
+  </div>
 
-        <div className="text-right">
-          <p className="text-sm text-gray-500">Culture Health</p>
+</div>
 
-          <p className="text-2xl font-bold text-emerald-600">
-            {healthScore.toFixed(0)}%
-          </p>
-        </div>
+      {/* ================= AI RECOMMENDATION ================= */}
+
+      <div className="bg-gradient-to-br from-emerald-500 to-teal-600 text-white p-6 rounded-2xl shadow-lg flex items-center gap-4">
+
+  <Brain className="animate-pulse" size={40} />
+
+  <div>
+    <h3 className="font-semibold text-lg">AI Recommendation</h3>
+    <p className="text-sm opacity-90">
+      {aiMessage}
+    </p>
+  </div>
+
+</div>
+      {/* ================= AI CULTURE ANALYSIS ================= */}
+
+<div className="shadow-[0_10px_40px_rgba(16,185,129,0.15)] bg-gradient-to-br from-emerald-50 via-white to-teal-50 
+rounded-2xl shadow-xl border border-white/40 backdrop-blur-lg p-6">
+
+  {/* Header */}
+
+  <div className="flex items-center justify-between mb-6">
+
+    <div className="flex items-center gap-3">
+
+      <Brain className="text-emerald-600 animate-pulse" size={28} />
+
+      <h2 className="text-lg font-semibold text-gray-800">
+        AI Culture Analysis
+      </h2>
+
+    </div>
+
+    <span className="text-xs bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full font-medium">
+      LIVE AI
+    </span>
+
+  </div>
+
+  {/* Health Meter */}
+
+  <div className="flex flex-col items-center">
+
+    <div className="relative w-40 h-40">
+
+      <svg className="w-full h-full transform -rotate-90">
+
+        {/* background ring */}
+
+        <circle
+          cx="80"
+          cy="80"
+          r="70"
+          stroke="#e5e7eb"
+          strokeWidth="12"
+          fill="none"
+        />
+
+        {/* progress ring */}
+
+        <circle
+          cx="80"
+          cy="80"
+          r="70"
+          stroke={
+            aiHealth > 70
+              ? "#10b981"
+              : aiHealth > 40
+              ? "#f59e0b"
+              : "#ef4444"
+          }
+          strokeWidth="12"
+          fill="none"
+          strokeDasharray="440"
+          strokeDashoffset={440 - (440 * aiHealth) / 100}
+          strokeLinecap="round"
+          className="transition-all duration-700"
+        />
+
+      </svg>
+
+      {/* percentage */}
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+
+        <span className="text-3xl font-bold text-gray-800">
+          {aiHealth}%
+        </span>
+
+        <span className="text-xs text-gray-500">
+          Health
+        </span>
 
       </div>
 
-      {/* AI RECOMMENDATION */}
+    </div>
 
-      <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-md border p-6 flex items-center gap-4">
+    {/* Status */}
 
-        <Brain className="text-emerald-600 animate-pulse" size={40} />
+    <div className="mt-5 text-center">
 
-        <div>
-          <p className="font-semibold text-gray-800">
-            AI Recommendation
-          </p>
+      <p className="text-gray-500 text-sm">
+        Culture Condition
+      </p>
 
-          <p className="text-gray-500">
-            {aiMessage}
-          </p>
-        </div>
+      <p className="font-semibold text-gray-800 mt-1">
+        {aiStatus}
+      </p>
 
-      </div>
+    </div>
 
-      {/* SENSOR CARDS */}
+  </div>
+
+</div>
+
+
+      {/* ================= SENSOR CARDS ================= */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
         {[
-          {name:t("Temperature"), value:`${sensor.temperature}°C`, icon:<Thermometer/>},
+          { name: t("Temperature"), value: `${sensor.temperature}°C`, icon: <Thermometer />, alert: sensor.temperature > 35 },
+          { name: t("pH Level"), value: sensor.phLevel ? `${sensor.phLevel.toFixed(2)} pH` : "N/A", icon: <Droplets />, alert: sensor.phLevel > 10.5 },
+          { name: t("Humidity"), value: `${sensor.humidity}%`, icon: <Waves />, alert: false },
+          { name: t("Light Intensity"), value: `${sensor.light} lux`, icon: <Sun />, alert: sensor.light < 2500 },
+          { name: "Air Quality", value: sensor.airQuality, icon: <Wind />, alert: sensor.airQuality < 900 },
+          { name: t("Growth Rate"), value: sensor.growthRate ? `${sensor.growthRate} g/L/d` : "N/A", icon: <TrendingUp />, alert: false },
+        ].map((item, i) => (
 
-          {
-            name:t("pH Level"),
-            value:sensor.phLevel ? `${sensor.phLevel.toFixed(2)} pH` : "8–10 pH",
-            icon:<Droplets/>
-          },
-
-          {name:t("Humidity"), value:`${sensor.humidity}%`, icon:<Waves/>},
-
-          {name:t("Light Intensity"), value:`${sensor.light} lux`, icon:<Sun/>},
-
-          {name:"Air Quality", value:sensor.airQuality, icon:<Wind/>},
-
-          {name:t("Growth Rate"), value:`${sensor.growthRate} g/L/d`, icon:<TrendingUp/>},
-
-        ].map((item,i)=>(
-          <div key={i} className={cardStyle}>
+          <div key={i} className={`${cardStyle} ${item.alert ? alertCard : ""}`}>
 
             <div className="flex justify-between items-center">
 
@@ -198,10 +364,101 @@ const Dashboard = () => {
             </div>
 
           </div>
+
         ))}
-        <FloatingAIChat sensor={sensor} />
+
       </div>
+      {/* ================= CAMERA FEED ================= */}
+
+      <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 p-[2px] rounded-2xl shadow-2xl">
+
+  {/* Outer tech glow */}
+  <div className="rounded-2xl bg-black p-5 relative overflow-hidden">
+
+    {/* Header */}
+    <div className="flex items-center justify-between mb-4">
+
+      <div className="flex items-center gap-3">
+        <Camera className="text-emerald-400" size={24} />
+        <h2 className="text-white text-lg font-semibold tracking-wide">
+          AI Vision Monitor
+        </h2>
       </div>
+
+      {/* LIVE indicator */}
+      <div className="flex items-center gap-2 text-emerald-400 text-sm font-semibold">
+
+        <span className="relative flex h-3 w-3">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+        </span>
+
+        LIVE
+
+      </div>
+
+    </div>
+
+    {/* Camera Frame */}
+    <div className="relative rounded-xl overflow-hidden border border-emerald-500/30 shadow-[0_0_25px_rgba(16,185,129,0.3)]">
+
+      {cameraOnline && cameraUrl ? (
+
+        <img
+          src={cameraUrl}
+          alt="ESP32 Camera"
+          className="w-full h-[360px] md:h-[420px] object-cover"
+          onError={() => setCameraOnline(false)}
+        />
+
+      ) : (
+
+        <div className="h-[360px] md:h-[420px] flex items-center justify-center text-gray-400">
+          Camera Offline
+        </div>
+
+      )}
+
+      {/* scanning line */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute w-full h-[2px] bg-emerald-400 opacity-70 animate-[scan_3s_linear_infinite]"></div>
+      </div>
+
+      {/* top overlay */}
+      <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md text-emerald-300 px-4 py-2 rounded-lg text-sm border border-emerald-500/30">
+        {aiStatus}
+      </div>
+
+      {/* bottom overlay */}
+      <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-md text-white px-4 py-2 rounded-lg text-sm border border-emerald-500/30">
+        AI Health:
+        <span className="text-emerald-400 font-semibold ml-1">
+          {aiHealth}%
+        </span>
+      </div>
+
+      {/* corner targeting frame */}
+      <div className="absolute inset-0 pointer-events-none">
+
+        <div className="absolute top-2 left-2 w-10 h-10 border-t-2 border-l-2 border-emerald-400"></div>
+
+        <div className="absolute top-2 right-2 w-10 h-10 border-t-2 border-r-2 border-emerald-400"></div>
+
+        <div className="absolute bottom-2 left-2 w-10 h-10 border-b-2 border-l-2 border-emerald-400"></div>
+
+        <div className="absolute bottom-2 right-2 w-10 h-10 border-b-2 border-r-2 border-emerald-400"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+      <FloatingAIChat sensor={sensor} />
+
+    </div>
   );
 };
 

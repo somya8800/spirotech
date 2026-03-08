@@ -4,3 +4,25 @@
 body {
   font-family: sans-serif;
 }
+@keyframes alertSlide {
+  0% {
+    transform: translateY(-200%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-50%);
+    opacity: 1;
+  }
+}
+
+.alert-slide {
+  animation: alertSlide 0.4s ease;
+}
+@keyframes scan {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 100%;
+  }
+}

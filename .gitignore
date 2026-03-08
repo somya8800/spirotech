@@ -27,3 +27,6 @@ dist-ssr
 .env.*.local
 # Local Netlify folder
 .netlify
+serviceAccountKey.json
+.venv/
+captures/
